@@ -1,0 +1,13 @@
+
+.Square{
+    color: #FFFFFF;
+    background-color: #AE2F2F;
+    display: flex;
+    flex: 1; 
+    padding: 10px;
+    border: 2px solid #FFFFFF;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ae2f2f */

@@ -1,6 +1,6 @@
 
 .Square{
-    padding: 20px;
+    padding: 25px;
     flex-grow: 1;
     flex-basis: 0;
     color: #FFFFFF;
@@ -28,4 +28,8 @@
 
 .bg-red{
     background-color: #AE2F2F;
+}
+
+.bg-transparent{
+    background-color: transparent;
 }

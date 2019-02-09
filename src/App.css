@@ -1,15 +1,22 @@
 .App {
   text-align: center;
+  background-color: #282c34;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  min-height: 100vh;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column; 
   flex: 1;
-  font-size: calc(10px + 2vmin);
-  color: white;
+}
+
+.App-body{
+}
+
+.App-footer{
+  
 }
 
 ul{
@@ -28,16 +35,13 @@ ul{
 .Squares-line{
   display: flex;
   flex-direction: row;
-  border: 2px white solid; 
   align-items: 'stretch'; 
-  background-color: pink;
   justify-content: center;
 }
 
 .Line-container-ul {
   display: flex;
   flex: 1;
-  /* justify-content: 'space-evenly'; */
   list-style: none;
   flex-direction: row;  
 }

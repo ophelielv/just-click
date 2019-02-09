@@ -17,6 +17,7 @@ class App extends Component {
     const squares = Array(GAME_Y).fill(row);
     this.state = {
       squares: this.filTheSquares(squares),
+      nbSquares: GAME_X*GAME_Y,
     }    
   }
 
@@ -114,14 +115,24 @@ class App extends Component {
   }
 
   render() {
+    const { nbSquares } = this.state;
     return (
       <div className="App">
         <header className="App-header">
           <p>
             Fait disparaître les cases le plus vite possible
           </p> 
-          {this.drawSquares()}
         </header>
+
+        <body className="App-body">
+          {this.drawSquares()}
+        </body>
+
+        <footer className="App-footer">
+          <p>
+            Il reste {nbSquares} case{nbSquares > 1 && 's'}
+          </p>
+        </footer>
       </div>
     );
   }

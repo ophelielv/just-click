@@ -12,11 +12,25 @@
   color: white;
 }
 
-.container {
+ul{
+  margin: 0;
+  padding: 0;
+  flex: 1;
+  display: flex;
+}
+.squaresList{
+  list-style: none;
+  flex: 1;
+  display: flex;
+  justify-content: 'space-evenly';
+}
+
+.line {
   display: flex;
   flex: 1;
+  justify-content: 'space-evenly';
+  list-style: none;
   flex-direction: row; 
-  
 }
 
 /* @keyframes App-logo-spin {

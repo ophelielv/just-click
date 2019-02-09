@@ -3,19 +3,21 @@ import Square from './components/Square'
 import './App.css';
 import { faCoffee, faCloudMoon, faDragon, faGem, faLemon, faSnowman } from '@fortawesome/free-solid-svg-icons'
 
+const GAMEWIDTH = 4;
+const GAMEHEIGHT = 6
 class App extends Component {
   constructor(props){
     super(props);
 
-    const row = Array(4).fill({
+    const row = Array(GAMEWIDTH).fill({
       selected: 0,
     });
 
-    const squares = Array(6).fill(row);
+    const squares = Array(GAMEHEIGHT).fill(row);
     this.state = {
       squares: this.filTheSquares(squares),
     }
-    console.log(this.state)
+    console.log("state",this.state)
     
   }
 
@@ -32,6 +34,7 @@ class App extends Component {
   chooseSquare(key){
     const square = {
       key: key,
+      selected: false,
     }
 
     switch(key%6){
@@ -63,10 +66,33 @@ class App extends Component {
     return square;
   }
 
-  _showRow = () => {
-    const { squares } = this.state.squares;
-    squares.forEach( row => {})
-    
+  /**
+   * 
+   */
+  drawSquares = () => {
+    const { squares } = this.state;
+    if(!squares){
+      return null;
+    }
+    const list = squares.map( row => this.drawLine(row));
+    return <li>{list}</li>
+  }
+
+  /**
+   * line : *  *  *  *  
+   */
+  drawLine = (row) => {
+    const cols = row.map( x => {
+      return (
+        <Square 
+          icon={x.icon} 
+          key={x.key} 
+          color={x.color}
+          selected={x.selected}
+        />
+      )
+    })
+    return <ul className="line">{cols}</ul>
   }
 
   render() {
@@ -76,14 +102,9 @@ class App extends Component {
           <p>
             Fait disparaître les cases le plus vite possible
           </p> 
-          <div className="container">
-            <Square icon={faCoffee} />
-            <Square icon={faCloudMoon} />
-            <Square icon={faDragon} />
-            <Square icon={faGem} />
-            <Square icon={faLemon} />
-            <Square icon={faSnowman} />
-          </div>
+          <ul className="squaresList">
+            {this.drawSquares()}
+          </ul>
         </header>
       </div>
     );

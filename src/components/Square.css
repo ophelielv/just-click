@@ -1,13 +1,36 @@
 
 .Square{
     color: #FFFFFF;
-    background-color: #AE2F2F;
     display: flex;
     flex: 1; 
-    padding: 10px;
-    border: 2px solid #FFFFFF;
+    padding: 20px;
+    /* border: 2px solid #FFFFFF; */
     justify-content: center;
     align-items: center;
+}
+
+.bg-pink{
+    background-color: #d675ca;
+}
+
+.bg-blue{
+    background-color: #3b9bec;
+}
+
+.bg-green{
+    background-color: #88da7e;
+}
+
+.bg-yellow{
+    background-color: #f7f256;
+}
+
+.bg-orange{
+    background-color: #f7b756;
+}
+
+.bg-red{
+    background-color: #AE2F2F;
 }
 
 /* ae2f2f */

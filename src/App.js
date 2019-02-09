@@ -11,7 +11,7 @@ class App extends Component {
 
     // row = array of 4 items
     const row = Array(GAME_X).fill({
-      selected: 0,
+      clicked: 0,
     });
 
     const squares = Array(GAME_Y).fill(row);
@@ -29,7 +29,7 @@ class App extends Component {
     let filledSquares = squares.map( (row, rowIndex) => {
       return row.map( (sq, i) => {
         const id =  GAME_X*rowIndex + i; // 0 to 24
-        // console.log(rowIndex + ' - ' + i + ' = ' + id)
+        
         return this.chooseItem(id);
       })
     })
@@ -39,7 +39,7 @@ class App extends Component {
   chooseItem(id){
     const square = {
       id: id,
-      selected: false,
+      clicked: false,
     }
 
     switch(id%6){
@@ -57,7 +57,7 @@ class App extends Component {
         break;
       case(3):
         square.icon = faGem;
-        square.color = 'yellow';
+        square.color = 'grey';
         break;
       case(4):
         square.icon = faLemon;
@@ -86,7 +86,8 @@ class App extends Component {
           icon={x.icon} 
           id={x.id} 
           color={x.color}
-          selected={x.selected}
+          clicked={x.clicked}
+          handleClick={this._handleClick}
         />
       )
     })
@@ -114,6 +115,38 @@ class App extends Component {
     return <ul className="Squares-list">{list}</ul>
   }
 
+  //----------------------- 
+  //----------------------- Events
+  //----------------------- 
+
+  _findSquare = (squares, squareId) => {
+
+    let found = null;
+    squares.forEach(row => {
+      const squareArray = row.filter(x => x.id === squareId)
+      if(squareArray.length === 1){
+        found = squareArray[0];
+      }
+    })
+
+    return found;
+  }
+
+  _handleClick = (squareId) => {
+    const { squares } = this.state;
+
+    const clickedSquare = this._findSquare(squares, squareId);
+    if(clickedSquare){ 
+      clickedSquare.clicked = true;
+    }
+    
+
+    this.setState({
+      squares: squares,
+      nbSquares: --this.state.nbSquares,
+    });
+  }
+
   render() {
     const { nbSquares } = this.state;
     return (
@@ -132,6 +165,7 @@ class App extends Component {
           <p>
             Il reste {nbSquares} case{nbSquares > 1 && 's'}
           </p>
+          
         </footer>
       </div>
     );

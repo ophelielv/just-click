@@ -3,7 +3,11 @@
     padding: 25px;
     flex-grow: 1;
     flex-basis: 0;
+}
+
+.active{
     color: #FFFFFF;
+    cursor: pointer;
 }
 
 .bg-pink{
@@ -18,8 +22,8 @@
     background-color: #88da7e;
 }
 
-.bg-yellow{
-    background-color: #f7f256;
+.bg-grey{
+    background-color: #8c8c8c;
 }
 
 .bg-orange{
@@ -27,9 +31,10 @@
 }
 
 .bg-red{
-    background-color: #AE2F2F;
+    background-color: #d22e2e;
 }
 
 .bg-transparent{
     background-color: transparent;
+    color: #626467;
 }

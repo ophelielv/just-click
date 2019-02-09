@@ -3,15 +3,10 @@ import './Square.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default class Square extends Component {
-    constructor(props){
-        super(props);
-    }
-
-
     render() {
-        
+        const id = this.props.id
         return (
-            <li className={`Square bg-${this.props.color}`}>
+            <li className={`Square bg-${this.props.color}`} key={id}>
                 <FontAwesomeIcon icon={this.props.icon} />
             </li>
         )

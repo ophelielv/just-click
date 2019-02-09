@@ -3,41 +3,45 @@ import Square from './components/Square'
 import './App.css';
 import { faCoffee, faCloudMoon, faDragon, faGem, faLemon, faSnowman } from '@fortawesome/free-solid-svg-icons'
 
-const GAMEWIDTH = 4;
-const GAMEHEIGHT = 6
+const GAME_X = 4;
+const GAME_Y = 6;
 class App extends Component {
   constructor(props){
     super(props);
 
-    const row = Array(GAMEWIDTH).fill({
+    // row = array of 4 items
+    const row = Array(GAME_X).fill({
       selected: 0,
     });
 
-    const squares = Array(GAMEHEIGHT).fill(row);
+    const squares = Array(GAME_Y).fill(row);
     this.state = {
       squares: this.filTheSquares(squares),
-    }
-    console.log("state",this.state)
-    
+    }    
   }
+
+  //-----------------------
+  //----------------------- Initialize
+  //-----------------------
 
   filTheSquares = (squares) => {
     let filledSquares = squares.map( (row, rowIndex) => {
       return row.map( (sq, i) => {
-        const key =  4*rowIndex + i; // de 0 à 24
-        return this.chooseSquare(key);
+        const id =  GAME_X*rowIndex + i; // 0 to 24
+        // console.log(rowIndex + ' - ' + i + ' = ' + id)
+        return this.chooseItem(id);
       })
     })
     return filledSquares;
   }
 
-  chooseSquare(key){
+  chooseItem(id){
     const square = {
-      key: key,
+      id: id,
       selected: false,
     }
 
-    switch(key%6){
+    switch(id%6){
       case(0):
         square.icon = faCoffee;
         square.color = 'blue';
@@ -66,33 +70,47 @@ class App extends Component {
     return square;
   }
 
-  /**
-   * 
-   */
-  drawSquares = () => {
-    const { squares } = this.state;
-    if(!squares){
-      return null;
-    }
-    const list = squares.map( row => this.drawLine(row));
-    return <li>{list}</li>
-  }
+  //-----------------------
+  //----------------------- Display
+  //-----------------------
 
   /**
-   * line : *  *  *  *  
+   * Fill a line with <Square /> components
+   * <li> is in <Square />
    */
   drawLine = (row) => {
     const cols = row.map( x => {
       return (
         <Square 
           icon={x.icon} 
-          key={x.key} 
+          id={x.id} 
           color={x.color}
           selected={x.selected}
         />
       )
     })
-    return <ul className="line">{cols}</ul>
+    return <ul className="Line-container-ul">{cols}</ul>
+  }
+
+  /**
+   * Display line after line
+   */
+  drawSquares = () => {
+    const { squares } = this.state;
+    if(!squares){
+      return null;
+    }
+
+    const list = squares.map( (row, index) => {
+      const line = this.drawLine(row);
+      return (
+        <li className='Squares-line' key={index}>
+            {line}
+        </li>
+      );
+    });
+ 
+    return <ul className="Squares-list">{list}</ul>
   }
 
   render() {
@@ -102,9 +120,7 @@ class App extends Component {
           <p>
             Fait disparaître les cases le plus vite possible
           </p> 
-          <ul className="squaresList">
-            {this.drawSquares()}
-          </ul>
+          {this.drawSquares()}
         </header>
       </div>
     );

@@ -1,12 +1,9 @@
 
 .Square{
-    color: #FFFFFF;
-    display: flex;
-    flex: 1; 
     padding: 20px;
-    /* border: 2px solid #FFFFFF; */
-    justify-content: center;
-    align-items: center;
+    flex-grow: 1;
+    flex-basis: 0;
+    color: #FFFFFF;
 }
 
 .bg-pink{
@@ -32,5 +29,3 @@
 .bg-red{
     background-color: #AE2F2F;
 }
-
-/* ae2f2f */

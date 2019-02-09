@@ -1,42 +1,49 @@
 import React, { Component } from 'react';
 import Square from './components/Square'
 import './App.css';
-import { faCoffee, faCloudMoon, faDragon, faGem, faLemon, faSnowman } from '@fortawesome/free-solid-svg-icons'
+import { faCoffee, faCloudMoon, faDragon, faGem, faLemon, faSnowman, faRedo } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const GAME_X = 4;
 const GAME_Y = 6;
 class App extends Component {
+  
   constructor(props){
     super(props);
 
+    const squares = this._createNewGame();
+    this.state = {
+      squares: this._fillTheSquares(squares),
+      nbSquares: GAME_X*GAME_Y,
+    }    
+  }
+
+  _createNewGame = () => {
     // row = array of 4 items
     const row = Array(GAME_X).fill({
       clicked: 0,
     });
 
     const squares = Array(GAME_Y).fill(row);
-    this.state = {
-      squares: this.filTheSquares(squares),
-      nbSquares: GAME_X*GAME_Y,
-    }    
+    return this._fillTheSquares(squares);
   }
 
   //-----------------------
   //----------------------- Initialize
   //-----------------------
 
-  filTheSquares = (squares) => {
+  _fillTheSquares = (squares) => {
     let filledSquares = squares.map( (row, rowIndex) => {
       return row.map( (sq, i) => {
         const id =  GAME_X*rowIndex + i; // 0 to 24
         
-        return this.chooseItem(id);
+        return this._chooseItem(id);
       })
     })
     return filledSquares;
   }
 
-  chooseItem(id){
+  _chooseItem(id){
     const square = {
       id: id,
       clicked: false,
@@ -77,9 +84,9 @@ class App extends Component {
 
   /**
    * Fill a line with <Square /> components
-   * <li> is in <Square />
+   * <button> is in <Square />
    */
-  drawLine = (row) => {
+  _drawLine = (row) => {
     const cols = row.map( x => {
       return (
         <Square 
@@ -97,14 +104,14 @@ class App extends Component {
   /**
    * Display line after line
    */
-  drawSquares = () => {
+  _drawSquares = () => {
     const { squares } = this.state;
     if(!squares){
       return null;
     }
 
     const list = squares.map( (row, index) => {
-      const line = this.drawLine(row);
+      const line = this._drawLine(row);
       return (
         <li className='Squares-line' key={index}>
             {line}
@@ -132,6 +139,9 @@ class App extends Component {
     return found;
   }
 
+  /**
+   * Click on square
+   */
   _handleClick = (squareId) => {
     const { squares } = this.state;
 
@@ -147,6 +157,17 @@ class App extends Component {
     });
   }
 
+  /**
+   * Play again
+   */
+  _handlePlayAgain = () => {
+    const squares = this._createNewGame();
+    this.setState({
+      squares: this._fillTheSquares(squares),
+      nbSquares: GAME_X*GAME_Y,
+    });
+  }
+
   render() {
     const { nbSquares } = this.state;
     return (
@@ -158,14 +179,18 @@ class App extends Component {
         </header>
 
         <body className="App-body">
-          {this.drawSquares()}
+          {this._drawSquares()}
         </body>
 
         <footer className="App-footer">
           <p>
             Il reste {nbSquares} case{nbSquares > 1 && 's'}
           </p>
-          
+          { (nbSquares === 0) && 
+            <button className="Button-play-again" onClick={this._handlePlayAgain}> 
+              <FontAwesomeIcon icon={faRedo} /> Recommencer
+            </button>
+          }
         </footer>
       </div>
     );

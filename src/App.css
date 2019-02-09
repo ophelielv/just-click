@@ -21,6 +21,13 @@
   
 }
 
+.Button-play-again{
+  padding: 6px 10px;
+  border-radius: 9px;
+  border: none;
+}
+
+
 ul{
   margin: 0;
   padding: 0;

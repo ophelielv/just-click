@@ -131,7 +131,7 @@ class App extends Component {
 
     let found = null;
     squares.forEach(row => {
-      const squareArray = row.filter(x => x.id === squareId)
+      const squareArray = row.filter(x => (x.id === squareId && x.clicked === false))
       if(squareArray.length === 1){
         found = squareArray[0];
       }
@@ -150,12 +150,13 @@ class App extends Component {
     const clickedSquare = this._findSquare(squares, squareId);
     if(clickedSquare){ 
       clickedSquare.clicked = true;
+      nbSquares--;
     }
     
 
     this.setState({
       squares: squares,
-      nbSquares: --nbSquares,
+      nbSquares: nbSquares,
     });
   }
 
@@ -186,7 +187,7 @@ class App extends Component {
 
         <footer>
           <p>
-            Il reste {nbSquares} case{nbSquares > 1 && 's'}
+            {nbSquares} case{nbSquares > 1 && 's'}
           </p>
           { (nbSquares === 0) && 
             <button className="Button-play-again" onClick={this._handlePlayAgain}> 

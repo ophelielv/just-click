@@ -12,14 +12,9 @@
   display: flex;
   flex-direction: column; 
   flex: 1;
+  justify-content: center;
 }
 
-.App-body{
-}
-
-.App-footer{
-  
-}
 
 .Button-play-again{
   padding: 6px 10px;

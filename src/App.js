@@ -91,6 +91,7 @@ class App extends Component {
       return (
         <Square 
           icon={x.icon} 
+          key={x.id} 
           id={x.id} 
           color={x.color}
           clicked={x.clicked}
@@ -113,7 +114,7 @@ class App extends Component {
     const list = squares.map( (row, index) => {
       const line = this._drawLine(row);
       return (
-        <li className='Squares-line' key={index}>
+        <li className='Squares-line' key={`line-${index}`}>
             {line}
         </li>
       );
@@ -144,6 +145,7 @@ class App extends Component {
    */
   _handleClick = (squareId) => {
     const { squares } = this.state;
+    let { nbSquares } = this.state;
 
     const clickedSquare = this._findSquare(squares, squareId);
     if(clickedSquare){ 
@@ -153,7 +155,7 @@ class App extends Component {
 
     this.setState({
       squares: squares,
-      nbSquares: --this.state.nbSquares,
+      nbSquares: --nbSquares,
     });
   }
 
@@ -178,11 +180,11 @@ class App extends Component {
           </p> 
         </header>
 
-        <body className="App-body">
+        <section>
           {this._drawSquares()}
-        </body>
+        </section>
 
-        <footer className="App-footer">
+        <footer>
           <p>
             Il reste {nbSquares} case{nbSquares > 1 && 's'}
           </p>

@@ -8,12 +8,12 @@ export default class Square extends Component {
     }
 
     render() {
-        const id = this.props.id
+        // const key = this.props.key
         const bgColor = (this.props.clicked) ? 'bg-transparent' : 'active bg-'+this.props.color;
         
         return (
             <li className={`Square ${bgColor}`} 
-                key={id}
+                // key={`square-${key}`}
                 onClick={this._handleClick}
             > 
                 <FontAwesomeIcon icon={this.props.icon} />

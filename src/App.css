@@ -16,24 +16,37 @@
 }
 
 
-.Button-play-again{
+.Button-default{
   padding: 6px 10px;
   border-radius: 9px;
   border: none;
+  cursor: pointer;
 }
 
+h1{
+  font-size: 1.4em;
+}
+
+.Chrono{
+  font-size: 1.2em;
+}
+
+.NbSquares{
+  font-size: 0.8em;
+  color: #d0d0d0;
+}
+
+.Subtitle{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 15px 20px;
+}
 
 ul{
   margin: 0;
   padding: 0;
-}
-
-.Squares-list{
-  /* list-style: none;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: 'space-evenly'; */
 }
 
 .Squares-line{
@@ -50,11 +63,3 @@ ul{
   flex-direction: row;  
 }
 
-/* @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */

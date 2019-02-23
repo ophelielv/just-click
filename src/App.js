@@ -250,15 +250,21 @@ class App extends Component {
   }
 
   _handleChangeInputX = (event) => {
-    this.setState({
-      inputX: parseInt(event.target.value),
-    });
+    const x = parseInt(event.target.value);
+    if(x >= 0 && x < 8){
+      this.setState({
+        inputX: x,
+      });
+    }
   }
 
   _handleChangeInputY = (event) => {
-    this.setState({
-      inputY: parseInt(event.target.value),
-    });
+    const y = parseInt(event.target.value);
+    if(y >= 0  && y <= 10){
+      this.setState({
+        inputY: y,
+      });
+    }
   }
 
   render() {

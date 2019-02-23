@@ -38,3 +38,7 @@
     background-color: transparent;
     color: #626467;
 }
+
+li.Square:hover{
+    opacity: 0.8;
+}

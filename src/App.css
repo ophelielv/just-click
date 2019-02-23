@@ -23,12 +23,20 @@
   cursor: pointer;
 }
 
+button.Button-default:hover{
+  opacity: 0.9;
+}
+
 h1{
   font-size: 1.4em;
 }
 
+.ml10{ margin-left: 10px; }
+
 .Chrono{
   font-size: 1.2em;
+  display: flex;
+  align-items: center;
 }
 
 .NbSquares{
@@ -61,5 +69,32 @@ ul{
   flex: 1;
   list-style: none;
   flex-direction: row;  
+}
+
+.Change-game-form{
+  margin: 15px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
+}
+
+.Change-game-form > label{
+  display: flex;
+  align-items: center;
+  margin: 2px 8px;
+}
+
+.Change-game-form > .Operator{
+  margin: 0px 6px;
+}
+
+.Change-game-form > label > input{
+  border-radius: 15px;
+  padding: 5px 0px 5px 10px;
+  border: none;
+  margin-right: 10px;
+  width: 70px;
+  text-align: center;
 }
 

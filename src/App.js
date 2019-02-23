@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Square from './components/Square'
 import './App.css';
-import { faCoffee, faCloudMoon, faDragon, faGem, faLemon, faSnowman, faRedo } from '@fortawesome/free-solid-svg-icons'
+import { faCoffee, faCloudMoon, faDragon, faGem, faLemon, faSnowman, faRedo, faCheck } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const GAME_X = 4;
@@ -12,7 +12,7 @@ class App extends Component {
     super(props);
 
     this.intervalID = null;
-    this.timeSeconds = 0
+    this.timeSeconds = 0;
 
     const squares = this._createNewGame(GAME_X, GAME_Y);
     this.state = {
@@ -22,7 +22,9 @@ class App extends Component {
       bestTimeSeconds: null,
       gameX: GAME_X,
       gameY: GAME_Y,
-    }
+      inputX: GAME_X,
+      inputY: GAME_Y,
+    };
   }
 
   _createNewGame = (X, Y) => {
@@ -184,12 +186,13 @@ class App extends Component {
    * On click on first square
    */
   _startGame = (nbSquares) => {
-    if(nbSquares === GAME_X*GAME_Y){
+    const { gameX, gameY } = this.state;
+    if(nbSquares === gameX * gameY){
       this.intervalID = setInterval(() => {
         this.timeSeconds++;
         this.setState({
           timeStr: this._secondsToStr(this.timeSeconds),
-        })
+        });
       }, 1000);
     }
   }
@@ -206,7 +209,7 @@ class App extends Component {
       if(this.state.bestTimeSeconds === null || this.timeSeconds < this.state.bestTimeSeconds){
         this.setState({
           bestTimeSeconds: this.timeSeconds,
-        })
+        });
       }
 
       this.timeSeconds = 0;
@@ -218,10 +221,43 @@ class App extends Component {
    */
   _handlePlayAgain = () => {
     const squares = this._createNewGame(this.state.gameX, this.state.gameY);
+    clearInterval(this.intervalID);
+    this.intervalID = null;
+    this.timeSeconds = 0;
     this.setState({
       squares: this._fillTheSquares(squares),
       nbSquares: GAME_X*GAME_Y,
       timeStr: this._secondsToStr(this.timeSeconds),
+    });
+  }
+
+  //-----------------------
+  //----------------------- Change size of board
+  //-----------------------
+
+  _handleSubmitChangeGame = (event) => {
+    event.preventDefault()
+    const { inputX, inputY} = this.state;
+    const squares = this._createNewGame(inputX, inputY);
+
+    this.setState({
+      squares: this._fillTheSquares(squares),
+      nbSquares: inputX * inputY,
+      timeStr: this._secondsToStr(this.timeSeconds),
+      gameX: inputX,
+      gameY: inputY,
+    });
+  }
+
+  _handleChangeInputX = (event) => {
+    this.setState({
+      inputX: parseInt(event.target.value),
+    });
+  }
+
+  _handleChangeInputY = (event) => {
+    this.setState({
+      inputY: parseInt(event.target.value),
     });
   }
 
@@ -236,6 +272,9 @@ class App extends Component {
           <p className="Subtitle">
             <span className="Chrono">
               {this.state.timeStr}
+            <button className="Button-default ml10" onClick={this._handlePlayAgain}>
+              <FontAwesomeIcon icon={faRedo} /> Recommencer
+            </button>
             </span>
             <span className="NbSquares">
               {nbSquares} case{nbSquares > 1 && 's'}
@@ -253,11 +292,22 @@ class App extends Component {
               Meilleur temps : {bestTimeStr}
             </p>
           }
-          { (nbSquares === 0) &&
-            <button className="Button-default" onClick={this._handlePlayAgain}>
-              <FontAwesomeIcon icon={faRedo} /> Recommencer
+
+          <form name="change-game" className="Change-game-form">
+            <label>
+              <input type="number" value={this.state.inputX} name="gameX" onChange={this._handleChangeInputX}/>
+              colonne{ this.state.inputX > 1 && 's'}
+            </label>
+            <span className="Operator">x</span>
+            <label>
+              <input type="number" value={this.state.inputY} name="gameY" onChange={this._handleChangeInputY}/>
+              ligne{ this.state.inputY > 1 && 's'}
+            </label>
+            <button className="Button-default" onClick={this._handleSubmitChangeGame}>
+              <FontAwesomeIcon icon={faCheck} /> Valider
             </button>
-          }
+          </form>
+
         </footer>
       </div>
     );
